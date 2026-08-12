@@ -59,6 +59,7 @@ const Patients = () => {
   }, [tryagain]);
 
   const handleDelete = async (patientId) => {
+    toast.info("Processing your request.")
     try{
       const response = await fetch(`${import.meta.env.VITE_API_URL}/patient/${patientId}`, {
         method: "DELETE",
@@ -70,16 +71,19 @@ const Patients = () => {
       if (response.ok) {
         patientsDispatch({ type: "DELETE_PATIENT", payload: patientId });
         sessionsDispatch({type: "DELETE_PATIENT_SESSIONS", payload: patientId})
+        toast.dismiss()
         toast.success("Deleted Successfully")
       }
       else{
         if(response.status == 401){
+          toast.dismiss()
           toast.info("Login needed");
           userDispatch({type:"LOGOUT"})
           setTimeout(() => {
             navigate('/login')
           }, 1000);
         }
+        toast.dismiss()
         toast.error("Something went wrong")
       }
     }
