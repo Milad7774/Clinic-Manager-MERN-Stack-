@@ -70,11 +70,14 @@ const PatientSessions = () => {
       const json = await response.json();
       if (response.ok) {
         sessionsDispatch({ type: "DELETE_SESSION", payload: sessionId });
+        toast.dismiss()
         toast.success("Deleted Successfully")
       }
       else{
+        toast.dismiss()
         toast.error("Something went wrong")
         if(response.status == 401){
+          toast.dismiss()
           toast.info("Login needed");
           userDispatch({type:"LOGOUT"})
           setTimeout(() => {
