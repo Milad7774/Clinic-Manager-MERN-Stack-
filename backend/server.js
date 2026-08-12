@@ -2,6 +2,7 @@ require('dotenv').config()
 // Well you need these
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 //? Routes
 const DocsRoutes = require('./routes/Docs')
 const patientRoutes = require('./routes/patients')
@@ -19,6 +20,10 @@ mongoose.connect(process.env.MONGO_DB)
 
 // Access req.body
 app.use(express.json());
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://your-frontend.vercel.app'],
+    credentials: true
+}));
 
 app.use((req, res, next) =>{
     console.log("Request is: ", req.method);
