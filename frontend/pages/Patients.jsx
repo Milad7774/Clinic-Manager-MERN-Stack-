@@ -28,7 +28,7 @@ const Patients = () => {
     setError(null);
     async function fetchPatients() {
       try {
-        const response = await fetch("/api/patient", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/patient`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         const json = await response.json();
@@ -60,7 +60,7 @@ const Patients = () => {
 
   const handleDelete = async (patientId) => {
     try{
-      const response = await fetch(`/api/patient/${patientId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/patient/${patientId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${user.token}`,

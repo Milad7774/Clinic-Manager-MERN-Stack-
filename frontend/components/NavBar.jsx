@@ -20,7 +20,7 @@ const NavBar = () => {
       return;
     }
     try{
-        const responseDeleteDoc = await fetch('/api/doc/delete', {
+        const responseDeleteDoc = await fetch(`${import.meta.env.VITE_API_URL}/doc/delete`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${user.token}`

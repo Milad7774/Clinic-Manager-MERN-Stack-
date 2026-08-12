@@ -29,7 +29,7 @@ const PatientSessions = () => {
     setError(null);
     async function fetchSessions() {
       try {
-        const response = await fetch(`/api/session/patient/${patient_id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/session/patient/${patient_id}`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         const json = await response.json();
@@ -60,7 +60,7 @@ const PatientSessions = () => {
 
   const handleDelete = async (sessionId) => {
     try{
-      const response = await fetch(`/api/session/${sessionId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/session/${sessionId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${user.token}`,

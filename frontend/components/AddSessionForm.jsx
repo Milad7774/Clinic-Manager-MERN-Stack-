@@ -24,7 +24,7 @@ const AddSessionForm = ({ type }) => {
         if (type === "Edit" && session_id) {
             const fetchSession = async () => {
                 try {
-                    const response = await fetch(`/api/session/${session_id}`, {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/session/${session_id}`, {
                         headers: {
                             Authorization: `Bearer ${user.token}`,
                         },
@@ -68,8 +68,8 @@ const AddSessionForm = ({ type }) => {
 
         const method = type === "Edit" ? "PATCH" : "POST";
         const API = type === "Edit" 
-            ? `/api/session/${session_id}` 
-            : `/api/session/${patient_id}`;
+            ? `${import.meta.env.VITE_API_URL}/session/${session_id}` 
+            : `${import.meta.env.VITE_API_URL}/session/${patient_id}`;
 
         const sessionData = {
             date,

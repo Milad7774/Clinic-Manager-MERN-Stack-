@@ -25,7 +25,7 @@ const Appointments = () =>{
         setLoading(true);
         async function fetchAppoinements(){
             try{
-                const response = await fetch("/api/session", {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/session`, {
                     headers: {
                         Authorization: `Bearer ${user.token}`
                     }

@@ -47,7 +47,7 @@ const AddPatientForm = ({ type }) => {
         // If patient not in context, fetch directly
         const fetchPatient = async () => {
           try {
-            const response = await fetch(`/api/patient/${patient_id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/patient/${patient_id}`, {
               headers: {
                 Authorization: `Bearer ${user.token}`,
               },
@@ -90,7 +90,7 @@ const AddPatientForm = ({ type }) => {
 
     const method = type == "Edit" ? "PATCH" : "POST";
 
-    const API = type == "Edit" ? `/api/patient/${patient_id}` : "/api/patient";
+    const API = type == "Edit" ? `${import.meta.env.VITE_API_URL}/patient/${patient_id}` : `${import.meta.env.VITE_API_URL}/patient`;
 
     const patient = {
       name,
