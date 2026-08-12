@@ -59,6 +59,7 @@ const PatientSessions = () => {
   }, [tryagain]);
 
   const handleDelete = async (sessionId) => {
+    toast.info("Processing your request.")
     try{
       const response = await fetch(`${import.meta.env.VITE_API_URL}/session/${sessionId}`, {
         method: "DELETE",
