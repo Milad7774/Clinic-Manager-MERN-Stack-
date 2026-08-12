@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_DB)
 // Access req.body
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://your-frontend.vercel.app'],
+    origin: ['http://localhost:5173', 'https://clinic-manager-mern-stack-9jajg68pb-milad-a5e5.vercel.app/'],
     credentials: true
 }));
 
