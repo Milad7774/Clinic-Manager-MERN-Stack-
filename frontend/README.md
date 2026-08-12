@@ -1,16 +1,89 @@
-# React + Vite
+# 🏥 Clinic Manager - MERN Stack Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack clinic management system built with the MERN stack (MongoDB, Express, React, Node.js). Designed for doctors and clinic staff to manage patients, sessions, appointments, and track payments efficiently.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:** [Clinic-Manager](https://clinic-manager-mern-stack.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+##  Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Authentication
+- Doctor registration and login with JWT authentication
+- Protected routes for authenticated users
+- Auto-logout on token expiry
+- Account deletion with cascade delete (removes all associated data)
 
-## Expanding the ESLint configuration
+### Patient Management
+-  Add new patients with name and phone number
+-  View all patients
+-  Edit patient details
+-  Delete patients (automatically removes all their sessions)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Session Management
+-  Add sessions for each patient with date, time, description, and payment
+-  Edit session details
+-  Delete sessions
+
+### Appointments Dashboard
+-  View all upcoming appointments (today and future)
+-  Patient names are clickable to view their full session history
+-  Sorted by date (soonest first)
+
+### User Experience
+-  Toast notifications for success, error, and info messages
+-  Loading states with spinner
+-  Error handling with retry functionality
+-  Responsive design (mobile, tablet, desktop)
+
+---
+
+##  Tech Stack
+
+### Frontend
+| Technology | Purpose |
+|------------|---------|
+| **React 18** | UI library |
+| **React Router v6** | Client-side routing |
+| **Vite** | Build tool and dev server |
+| **Context API + useReducer** | State management |
+| **React Phone Number Input** | Phone number input with country selector |
+| **React Toastify** | Toast notifications |
+| **React Loader Spinner** | Loading animations |
+| **CSS3** | Custom responsive styling |
+
+### Backend
+| Technology | Purpose |
+|------------|---------|
+| **Node.js** | Runtime environment |
+| **Express.js** | Web framework for REST API |
+| **MongoDB** | NoSQL database |
+| **Mongoose** | ODM for MongoDB |
+| **JWT (jsonwebtoken)** | Authentication tokens |
+| **bcrypt** | Password hashing |
+| **validator** | Email and password validation |
+| **cors** | Cross-Origin Resource Sharing |
+
+### DevOps & Deployment
+| Service | Purpose |
+|---------|---------|
+| **Vercel** | Frontend hosting |
+| **Render** | Backend hosting |
+| **MongoDB Atlas** | Database hosting |
+| **GitHub** | Version control |
+
+---
+
+##  Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm
+- MongoDB Atlas account (or local MongoDB)
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/Milad7774/clinic-manager.git
+cd clinic-manager

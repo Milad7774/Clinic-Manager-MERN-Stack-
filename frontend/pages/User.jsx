@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useAuthContext from "../src/Hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const User = ({ type }) => {
   const { user, dispatch: userDispatch } = useAuthContext();
 
@@ -18,6 +18,7 @@ const User = ({ type }) => {
   async function handleData(e) {
     e.preventDefault();
     setLoading(true);
+    toast.info("Backend might need a minute to wake up, (Render Free Tier)", {autoClose: 5000})
     //Post or fetch account
     const Doctor = {
       email,
