@@ -1,9 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuthContext from "../src/Hooks/useAuthContext";
 import { toast } from 'react-toastify';
+import { useState } from "react";
 
 const NavBar = () => {
   const { user, dispatch: userDispatch } = useAuthContext();
+
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -20,6 +23,8 @@ const NavBar = () => {
       return;
     }
     try{
+      setLoading(true)
+      toast.info("Proccessing your request.")
         const responseDeleteDoc = await fetch(`${import.meta.env.VITE_API_URL}/doc/delete`, {
             method: "DELETE",
             headers: {
@@ -29,7 +34,7 @@ const NavBar = () => {
         const jsonDoc = await responseDeleteDoc.json();
 
         if(responseDeleteDoc.ok){
-            
+            toast.dismiss()
             toast.success("Delete Successfull")
             userDispatch({type: "LOGOUT"})
             setTimeout(() => {
@@ -37,7 +42,7 @@ const NavBar = () => {
             }, 1000);
         }
         else{
-            
+            toast.dismiss()
             toast.error("Something went wrong");
             if(responseDeleteDoc.status == 401){
                 toast.dismiss()
@@ -50,8 +55,12 @@ const NavBar = () => {
         }
     }
     catch(e){
-        console.log(e)
+        console.log(e.message)
+        toast.dismiss()
         toast.error("Connection Error");
+    }
+    finally{
+      setLoading(false)
     }
   }
 
@@ -69,7 +78,7 @@ const NavBar = () => {
           {user.email}
           <div style={{display: "flex", gap: "10px"}}>
             <button onClick={handleLogout}> Log out </button>
-            <button onClick={handleDelete} style={{ color: "red" }}>
+            <button onClick={handleDelete} style={{ color: "red" }} disabled = {loading}>
               {" "}
               Delete Account{" "}
             </button>
