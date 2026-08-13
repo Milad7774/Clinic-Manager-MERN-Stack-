@@ -72,7 +72,7 @@ const User = ({ type }) => {
           />
         </div>
         {error && <div style={{color: "red", fontWeight: "bold"}}> {error} </div>}
-        <button>
+        <button disabled = {loading}>
           {" "}
           {!loading && (type == "login" ? "Login" : "Sign up")}{" "}
           {loading && "Just a moment"}

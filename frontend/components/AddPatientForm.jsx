@@ -30,6 +30,8 @@ const AddPatientForm = ({ type }) => {
 
   const [errorArray, setErrorArray] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
 
   const [fetched, setFetched] = useState(false);
@@ -86,7 +88,9 @@ const AddPatientForm = ({ type }) => {
 
   async function handlePatient(e) {
     e.preventDefault();
+    setLoading(true)
     infoToast();
+
 
     const method = type == "Edit" ? "PATCH" : "POST";
 
@@ -137,6 +141,9 @@ const AddPatientForm = ({ type }) => {
       errorToast()
       console.log(e.message);
     }
+    finally{
+      setLoading(false)
+    }
   }
 
   return (
@@ -165,7 +172,7 @@ const AddPatientForm = ({ type }) => {
           />
         </div>
         <div style={{color: "red", fontWeight: "bold"}}> {error} </div>
-        <button> {type} </button>
+        <button disabled = {load}> {type} </button>
       </form>
     </div>
   );
