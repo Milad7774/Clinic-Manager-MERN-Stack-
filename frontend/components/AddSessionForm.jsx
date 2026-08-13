@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useAuthContext from "../src/Hooks/useAuthContext";
 import { toast } from 'react-toastify';
+import useSessionContext from "../src/Hooks/useSessionContext";
 
 const AddSessionForm = ({ type }) => {
     const { user, dispatch: userDispatch } = useAuthContext();
+    const { sessions } = useSessionContext();
     const { patient_id, session_id } = useParams();
     const navigate = useNavigate();
 
@@ -22,35 +24,44 @@ const AddSessionForm = ({ type }) => {
 
     useEffect(() => {
         if (type === "Edit" && session_id) {
-            const fetchSession = async () => {
-                try {
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/session/${session_id}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.token}`,
-                        },
-                    });
-                    const json = await response.json();
-                    if (response.ok) {
-                        // Format date for input (YYYY-MM-DD)
-                        const formattedDate = json.date ? json.date.split('T')[0] : "";
-                        setDate(formattedDate);
-                        setTime(json.time || "");
-                        setDescription(json.description || "");
-                        setPayment(json.payment || "");
-                    } else {
-                        toast.error("Failed to fetch session data");
-                        if (response.status === 401) {
-                            toast.info("Login needed");
-                            userDispatch({ type: "LOGOUT" });
-                            setTimeout(() => navigate('/login'), 1000);
+            const existingSession = sessions?.find((item) => item._id === session_id)
+            if(existingSession){
+                setDate(existingSession.date);
+                setTime(existingSession.time);
+                setDescription(existingSession.description);
+                setPayment(existingSession.payment);
+            }
+            else{
+                const fetchSession = async () => {
+                    try {
+                        const response = await fetch(`${import.meta.env.VITE_API_URL}/session/${session_id}`, {
+                            headers: {
+                                Authorization: `Bearer ${user.token}`,
+                            },
+                        });
+                        const json = await response.json();
+                        if (response.ok) {
+                            // Format date for input (YYYY-MM-DD)
+                            const formattedDate = json.date ? json.date.split('T')[0] : "";
+                            setDate(formattedDate);
+                            setTime(json.time || "");
+                            setDescription(json.description || "");
+                            setPayment(json.payment || "");
+                        } else {
+                            toast.error("Failed to fetch session data");
+                            if (response.status === 401) {
+                                toast.info("Login needed");
+                                userDispatch({ type: "LOGOUT" });
+                                setTimeout(() => navigate('/login'), 1000);
+                            }
                         }
+                    } catch (e) {
+                        setError("Failed to fetch session data");
+                        toast.error("Connection Error");
                     }
-                } catch (e) {
-                    setError("Failed to fetch session data");
-                    toast.error("Connection Error");
-                }
-            };
-            fetchSession();
+                };
+                fetchSession();
+            }
         } else {
             setDate("");
             setTime("");
