@@ -172,7 +172,7 @@ const AddPatientForm = ({ type }) => {
           />
         </div>
         <div style={{color: "red", fontWeight: "bold"}}> {error} </div>
-        <button disabled = {load}> {type} </button>
+        <button disabled = {loading}> {type} </button>
       </form>
     </div>
   );
