@@ -35,11 +35,9 @@ const PatientSessions = () => {
         const json = await response.json();
         if (response.ok) {
           sessionsDispatch({ type: "SET_SESSIONS", payload: json });
-          setLoading(false);
           setError(null);
         }
         if (!response.ok) {
-          setLoading(false);
           setError(json.message);
           if(response.status == 401){
             toast.info("Login needed");
@@ -51,8 +49,10 @@ const PatientSessions = () => {
         }
       } catch (e) {
         console.log("Server Error", e.message);
-        setLoading(false);
         setError("Connection Failure");
+      }
+      finally{
+        setLoading(false);
       }
     }
     fetchSessions();

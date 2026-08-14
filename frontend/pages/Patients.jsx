@@ -35,11 +35,11 @@ const Patients = () => {
         
         if (response.ok) {
           patientsDispatch({ type: "SET_PATIENTS", payload: json });
-          setLoading(false);
+          
           setError(null);
         }
         if (!response.ok) {
-          setLoading(false);
+          
           setError(json.message);
           if(response.status == 401){
             toast.info("Login needed");
@@ -51,8 +51,10 @@ const Patients = () => {
         }
       } catch (e) {
         console.log("Server Error", e.message);
-        setLoading(false);
         setError("Connection Failure");
+      }
+      finally{
+        setLoading(false);
       }
     }
     fetchPatients()

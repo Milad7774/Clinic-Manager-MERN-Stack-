@@ -32,11 +32,10 @@ const Appointments = () =>{
                 })
                 const json = await response.json();
                 if(response.ok){
-                    setLoading(false);
                     setData(json)
                 }
                 else{
-                    setLoading(false);
+                    setError(json.message)
                     if(response.status == 401){
                         toast.info("Login Needed");
                         userDispatch({type: "LOGOUT"});
@@ -44,12 +43,13 @@ const Appointments = () =>{
                             navigate("/login");
                         }, 1000);
                     }
-
                 }
             }
             catch(e){
-                setLoading(false);
                 setError("Connection Error")
+            }
+            finally{
+                setLoading(false);
             }
         }
         fetchAppoinements()
