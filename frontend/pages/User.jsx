@@ -34,18 +34,18 @@ const User = ({ type }) => {
       const json = await response.json();
 
       if (response.ok) {
-        setLoading(false);
         setError(null);
         userDispatch({ type: "LOGIN", payload: json });
         localStorage.setItem("user", JSON.stringify(json));
         navigate('/addPatient')
       } else if (!response.ok) {
-        setLoading(false);
         setError(json.message);
       }
     } catch (e) {
       setError("Server error, try again later");
-      setLoading(false)
+    }
+    finally{
+      setLoading(false);
     }
   }
 
