@@ -76,7 +76,7 @@ const Appointments = () =>{
                 <tbody>
                     {data.map((item) =>(
                         <tr key={item._id}>
-                            <td> <Link to={`/sessions/${item.patient_id._id}`}> {item.patient_id.name} </Link> </td>
+                            <td> <Link to={`/sessions/${item.patient_id._id}`} state={item.patient_id.name}> {item.patient_id.name} </Link> </td>
                             <td> {item.patient_id.phoneNumber} </td>
                             <td> <p>{item.description}</p> </td>
                             <td> {new Date(item.date).toLocaleDateString()} </td>
