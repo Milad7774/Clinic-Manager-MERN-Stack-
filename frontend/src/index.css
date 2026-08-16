@@ -536,6 +536,20 @@ body {
 }
 
 /* ========== DYNAMIC TABLE ========== */
+.searchInput{
+  position: relative;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  margin-top: 20px;
+  padding: 3px;
+  text-align: center;
+  border: 2px solid var(--primary-2);
+  border-radius: 50px;
+}
+.searchInput:focus{
+  outline: none;
+  box-shadow: none;
+}
 .table-father {
   overflow-x: auto;
   margin: 20px 40px;

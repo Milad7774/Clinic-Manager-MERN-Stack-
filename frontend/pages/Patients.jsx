@@ -7,6 +7,7 @@ import ServerError from "../components/ServerError";
 import useSessionContext from "../src/Hooks/useSessionContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import useSearch from "../src/Hooks/useSearch";
 
 const Patients = () => {
   const { patients, dispatch: patientsDispatch } = usePatientContext();
@@ -21,7 +22,11 @@ const Patients = () => {
 
   const [error, setError] = useState(null);
 
-  const [tryagain, setTryagain] = useState(false)
+  const [tryagain, setTryagain] = useState(false);
+
+  const [search, setSearch] = useState('');
+
+  const  {searchedPatients} = useSearch(patients, search)
 
   useEffect(() => {
     setLoading(true);
@@ -102,7 +107,15 @@ const Patients = () => {
       {error && !loading && (
         <ServerError message={error} tryagain = {setTryagain} valueTryAgain = { tryagain }/>
       )}
-      {!error && !loading && <Table data = { patients } onDelete = { handleDelete } type = "patient"/>}
+      {!error && !loading && (
+        <input 
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search Patient"
+        className="searchInput" />
+      )}
+      {!error && !loading  &&  <Table data = { searchedPatients ?? patients } onDelete = { handleDelete } type = "patient"/>}
     </>
   );
 };
