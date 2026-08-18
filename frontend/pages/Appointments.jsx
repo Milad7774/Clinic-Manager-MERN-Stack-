@@ -79,7 +79,7 @@ const Appointments = () =>{
                             <td> <Link to={`/sessions/${item.patient_id._id}`} state={item.patient_id.name}> {item.patient_id.name} </Link> </td>
                             <td> {item.patient_id.phoneNumber} </td>
                             <td> <p>{item.description}</p> </td>
-                            <td> {new Date(item.date).toLocaleDateString()} </td>
+                            <td> {new Date(item.date).toLocaleDateString('en-UK')} </td>
                             <td> {item.time.slice(0, 5)} </td>
                         </tr>
                     ))}

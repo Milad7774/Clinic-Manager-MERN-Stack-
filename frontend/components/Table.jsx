@@ -44,7 +44,7 @@ const Table = ({ data , onDelete, type}) =>{
                             }
                             else if(head == "date"){
                                 return(
-                                    <td key={item[head]}> {new Date(item[head]).toLocaleDateString()} </td>
+                                    <td key={item[head]}> {new Date(item[head]).toLocaleDateString('en-UK')} </td>
                                 )
                             }
                             else if(head == "description"){
