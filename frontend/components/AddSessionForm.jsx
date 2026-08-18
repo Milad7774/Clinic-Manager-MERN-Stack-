@@ -25,8 +25,9 @@ const AddSessionForm = ({ type }) => {
     useEffect(() => {
         if (type === "Edit" && session_id) {
             const existingSession = sessions?.find((item) => item._id === session_id)
+            console.log(existingSession, "Exisiting")
             if(existingSession){
-                setDate(existingSession.date);
+                setDate(existingSession.date.split("T")[0]);
                 setTime(existingSession.time);
                 setDescription(existingSession.description);
                 setPayment(existingSession.payment);
@@ -40,6 +41,7 @@ const AddSessionForm = ({ type }) => {
                             },
                         });
                         const json = await response.json();
+                        console.log(json, "This is json")
                         if (response.ok) {
                             // Format date for input (YYYY-MM-DD)
                             const formattedDate = json.date ? json.date.split('T')[0] : "";
